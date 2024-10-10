@@ -2,11 +2,26 @@ import "./Sidebar.css";
 import {personsImgs} from "../../../utils/images.js"
 import { navigationLinks } from "../../../data/data.js";
 
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { SidebarContext } from "../../../Context/sidebarContext.jsx";
 
 const Sidebar = () => {
+
+  const[activeLinkIdx] =useState(1);
+  const[sidebarClass,setSidebarClass] = useState("");
+  const {isSidebarOpen} = useContext(SidebarContext) ;
+
+  useEffect(() =>{
+    if(isSidebarOpen){
+      setSidebarClass("sidebar-change");
+    } else{
+      setSidebarClass('');
+    }
+  },[isSidebarOpen]);
+ 
+
   return (
-    <div className="{`sidebar`}">
+    <div className=  {`sidebar  ${sidebarClass}`}>
       <div className="user-info">
         <div  className="info-img img-fit-cover">
           <img src={personsImgs.person_two} alt="profile image" />
@@ -17,7 +32,7 @@ const Sidebar = () => {
         <ul className="nav-list">
           {navigationLinks.map((navigationLink)=>(
             <li className="nav-item" key = {navigationLink.id}>
-              <a href="#"  className={`nav-link`}>
+              <a href="#"  className={`nav-link ${navigationLink.id === activeLinkIdx ? 'active' : null}`}>
                 <img src={navigationLink.image}  
                 className="nav-link-icon"  
                 alt={navigationLink.title} />
