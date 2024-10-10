@@ -1,0 +1,6 @@
+.grid-c8 .grid-item-fill{
+  width: 60%;
+  height: 10%;
+  background-color: var(--clr-pumpkin);
+  border-radius: 100vh;
+}
